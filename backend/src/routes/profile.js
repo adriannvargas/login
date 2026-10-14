@@ -3,7 +3,8 @@ import { User } from '../models/User.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
-const EDITABLE = ['name', 'email', 'bio', 'phone', 'city'];
+// El email identifica la cuenta: no se acepta desde el body (evita asignación masiva)
+const EDITABLE = ['name', 'bio', 'phone', 'city'];
 
 router.use(requireAuth);
 
