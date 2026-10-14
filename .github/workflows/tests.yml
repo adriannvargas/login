@@ -1,0 +1,68 @@
+name: Tests Login + Perfil
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: "Test 1 · API Registro"
+            spec: tests/api/01-registro.spec.js
+          - name: "Test 2 · API Login"
+            spec: tests/api/02-login.spec.js
+          - name: "Test 3 · API Perfil"
+            spec: tests/api/03-perfil-api.spec.js
+          - name: "Test 4 · UI Registro y Login"
+            spec: tests/e2e/04-login-ui.spec.js
+          - name: "Test 5 · UI Perfil"
+            spec: tests/e2e/05-perfil-ui.spec.js
+
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      CI: true
+      MONGODB_URI: mongodb://localhost:27017/login_app_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Ejecutar ${{ matrix.name }}
+        run: npx playwright test ${{ matrix.spec }}
+
+      - name: Subir reporte
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-test-${{ strategy.job-index }}
+          path: playwright-report/
+          retention-days: 14
