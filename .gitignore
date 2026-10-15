@@ -5,3 +5,5 @@ test-results/
 .env
 .local-db/
 __pycache__/
+.firebase/
+firebase-debug.log

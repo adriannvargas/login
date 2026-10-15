@@ -1,0 +1,30 @@
+{
+  "hosting": {
+    "public": "frontend/dist",
+    "predeploy": ["npm run build"],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      { "source": "/api/**", "function": { "functionId": "api", "region": "us-central1" } },
+      { "source": "**", "destination": "/index.html" }
+    ]
+  },
+  "functions": {
+    "source": ".",
+    "runtime": "nodejs22",
+    "ignore": [
+      "node_modules",
+      ".git",
+      ".github",
+      ".claude",
+      ".firebase",
+      ".local-db",
+      "*.log",
+      "frontend",
+      "login",
+      "tests",
+      "test-results",
+      "playwright-report",
+      "scripts"
+    ]
+  }
+}
