@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 
 // Backend desplegado en Render (repo backendUpbtest). Se puede cambiar al compilar con NEXT_PUBLIC_API_URL.
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://backendupbtest.onrender.com";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://backendupbtest-4s9r.onrender.com";
 
 type Producto = {
   id: number;
