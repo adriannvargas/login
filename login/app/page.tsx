@@ -1,3 +1,5 @@
+import Productos from "./productos";
+
 const REPO = "https://github.com/adriannvargas/login";
 
 // Se calcula al compilar (export estático): sirve para comprobar qué build está publicado.
@@ -51,7 +53,7 @@ export default function Home() {
         <section className="mx-auto max-w-5xl px-4 pb-16 pt-12 text-center sm:px-6 sm:pt-20">
           <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            Desplegado en Firebase Hosting
+            Firebase Hosting + API en Render
           </span>
           <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
             Login y perfil de usuario
@@ -67,6 +69,12 @@ export default function Home() {
               className="rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition hover:bg-indigo-500"
             >
               Ver el código
+            </a>
+            <a
+              href="#productos"
+              className="rounded-lg border border-slate-300 px-6 py-3 font-medium transition hover:bg-slate-200 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
+              Probar la API de productos
             </a>
             <a
               href={`${REPO}/actions`}
@@ -116,6 +124,8 @@ export default function Home() {
             </ul>
           </div>
         </section>
+
+        <Productos />
       </main>
 
       <footer className="border-t border-slate-200 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-800">
